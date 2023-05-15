@@ -781,6 +781,7 @@ export default function UserTaskCompleted() {
         </Box>
       </Modal>
 
+
       <Snackbar
         open={openSnack}
         autoHideDuration={3000}
