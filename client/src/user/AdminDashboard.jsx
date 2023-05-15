@@ -83,6 +83,7 @@ export default function AdminDashboard() {
       console.error(error);
     }
   };
+  // idr hum ny ye krna ha k, admin dashboard se content otha k idr lana ha, aur errors remove krny hein, 
 
   const handleImageShow = (index) => {
     const images = selectedFiles[index];
@@ -134,6 +135,7 @@ export default function AdminDashboard() {
                   cursor: "pointer",
                   "&:hover": { bgcolor: "#01203A", color: "white" },
                 }}
+                onClick={() => navigate("/admin/tasksassigned")}
               >
                 Tasks Assigned
               </Item>

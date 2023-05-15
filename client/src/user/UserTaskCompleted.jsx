@@ -23,6 +23,7 @@ import Slide from "@mui/material/Slide";
 import { saveAs } from "file-saver";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import QRCode from "react-qr-code";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -76,6 +77,10 @@ export default function UserTaskCompleted() {
   const [iframeHeight, setIframeHeight] = React.useState("");
   const [iframeWidth, setIframeWidth] = React.useState("");
   const [iframeModal, setIframeModal] = React.useState(false);
+  const [openQRModal, setOpenQRModal] = React.useState(false);
+
+  const handleOpenQRModal = () => setOpenQRModal(true);
+  const handleCloseQRModal = () => setOpenQRModal(false);
 
   const handleCloseSnack = (event, reason) => {
     if (reason === "clickaway") {
@@ -505,6 +510,23 @@ export default function UserTaskCompleted() {
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               Viewing 3D Model
             </Typography>
+
+            <Button
+              autoFocus
+              color="inherit"
+              onClick={() => {
+                handleOpenQRModal();
+              }}
+              sx={{
+                "&:hover": {
+                  bgcolor: "#00558D",
+                  fontWeight: "bold",
+                },
+              }}
+            >
+              QR Code
+            </Button>
+
             <Button
               autoFocus
               color="inherit"
@@ -723,6 +745,39 @@ export default function UserTaskCompleted() {
               </Button>
             </Grid>
           </Grid>
+        </Box>
+      </Modal>
+
+      <Modal
+        open={openQRModal}
+        onClose={handleCloseQRModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        sx={{ overflow: "auto" }}
+      >
+        <Box sx={style}>
+          <h1>QR Code</h1>
+          <Divider />
+          <h3>Model Link</h3>
+          <Divider />
+          {`http://localhost:3000/user/iframe/${objectID}`}
+          <Divider />
+          <br />
+          <div
+            style={{
+              height: "auto",
+              margin: "0 auto",
+              maxWidth: 200,
+              width: "100%",
+            }}
+          >
+            <QRCode
+              size={256}
+              style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+              value={`http://localhost:3000/user/iframe/${objectID}`}
+              viewBox={`0 0 256 256`}
+            />
+          </div>
         </Box>
       </Modal>
 
